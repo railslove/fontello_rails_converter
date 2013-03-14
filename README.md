@@ -18,6 +18,6 @@ A Ruby script to convert icon font assets coming from http://fontello.com for th
 
 Now you simply need to `@import` the appropiate stylesheet in your application and you are good to go.  Usually only doing `@import <your_font_name>` should be enough.
 
-You can copy the `demo.html` to `your_rail_sapp/public/styleguide/icon_demo.html` for icon reference inside your app (http://localhost:3000/styleguide/icon_demo.html).
+You can copy the `demo.html` to `your_rail_sapp/public/styleguide/icon_demo.html` for icon reference inside your app ([http://localhost:3000/styleguide/icon_demo.html](http://localhost:3000/styleguide/icon_demo.html)).
 
 
