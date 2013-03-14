@@ -24,9 +24,7 @@ Dir["css/*"].each do |file_path|
         content += ".#{icon} { @extend %#{icon}; }\n"
       end
     end
-    
-    puts content
-    
+
     File.open(file_path, 'w') { |f| f.write(content) }
   end
   
