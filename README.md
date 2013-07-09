@@ -1,4 +1,4 @@
-## fontello-rails-converter
+## fontello_rails_converter
 
 Rake task to be run on .zip file downloaded from fontello.com.  It will copy all the assets to the appropiate places in your Rails app and convert them where necessary.
 
