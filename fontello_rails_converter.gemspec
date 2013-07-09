@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = FontelloRailsConverter::VERSION
   spec.authors       = ["Jakob Hilden"]
   spec.email         = ["jakobhilden@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Rake task to be run on .zip file downloaded from fontello.com.  It will copy all the assets to the appropiate places in your Rails app and convert them where necessary.}
+  spec.summary       = %q{Convert/import icon font .zip files downloaded from fontello.com into your Rails app}
+  spec.homepage      = "https://github.com/railslove/fontello_rails_converter"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
