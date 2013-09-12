@@ -1,7 +1,7 @@
 desc "import new zipfile from fontello"
 task :import_fontello, [:zipfile] => :environment do |t, args|
   include FontelloRailsConverter::ColorizedOutput
-  require 'zip/zip'
+  require 'zip'
 
   fontello_zipfile = args[:zipfile]
 
@@ -49,7 +49,7 @@ task :import_fontello, [:zipfile] => :environment do |t, args|
     content.gsub! /css\//, "/assets/"
   end
 
-  Zip::ZipFile.open(args[:zipfile]) do |zipfile|
+  Zip::File.open(args[:zipfile]) do |zipfile|
     zipfile.each do |file|
       filename = file.to_s.split("/").last
 
