@@ -32,3 +32,7 @@ Fontello recently added an API ([https://github.com/fontello/fontello#developers
 
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/railslove/fontello_rails_converter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
