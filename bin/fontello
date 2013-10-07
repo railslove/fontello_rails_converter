@@ -10,9 +10,9 @@ if ARGV[0].nil?
 end
 
 options = {
-	:asset_dir => "./", 
-	:stylesheet_dir => "./", 
-	:font_dir => "./", 
+	:asset_dir => "./",
+	:stylesheet_dir => "./",
+	:font_dir => "./",
 	:zip_file => "./fontello.zip",
 	:config_file => "./config.json"
 }
@@ -31,11 +31,11 @@ OptionParser.new do |opts|
   opts.on("-a", "--asset-dir [PATH]", "Target asset directory") do |a|
     options[:asset_dir] = a
   end
-  
+
   opts.on("-s", "--stylesheet-dir [PATH]", "Target stylesheet directory") do |s|
     options[:stylesheet_dir] = s
   end
-  
+
   opts.on("-f", "--font-dir [PATH]", "Target font directory") do |f|
     options[:font_dir] = f
   end
