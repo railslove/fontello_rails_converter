@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require "fontello_rails_converter"
+command = ARGV[0]
+
+if ARGV[0].nil?
+	puts "Run fontello --help for help"
+	exit
+end
+
+options = {
+	:asset_dir => "./", 
+	:stylesheet_dir => "./", 
+	:font_dir => "./", 
+	:zip_file => "./fontello.zip",
+	:config_file => "./config.json"
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: fontello-converter path/to/fontello/download.zip [options]"
+
+	opts.on("-c", "--config [FILE]", "Config json file") do |c|
+		options[:config_file] = c
+	end
+
+	opts.on("-i", "--input [FILE]", "downloaded zip file") do |c|
+		options[:zip_file] = c
+	end
+
+  opts.on("-a", "--asset-dir [PATH]", "Target asset directory") do |a|
+    options[:asset_dir] = a
+  end
+  
+  opts.on("-s", "--stylesheet-dir [PATH]", "Target stylesheet directory") do |s|
+    options[:stylesheet_dir] = s
+  end
+  
+  opts.on("-f", "--font-dir [PATH]", "Target font directory") do |f|
+    options[:font_dir] = f
+  end
+end.parse!
+
+
+unless ["open", "convert"].include?(command)
+	puts "available commands: open, convert"
+	exit
+end
+
+FontelloRailsConverter::Cli.new(options).send(command)
+
