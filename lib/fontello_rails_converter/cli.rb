@@ -1,11 +1,10 @@
-require "fileutils"
-require 'rest_client'
+require 'fileutils'
 require 'launchy'
-require "zip/zip"
+require 'zip'
+
 module FontelloRailsConverter
   class Cli
     include ColorizedOutput
-    FONTELLO_HOST = "http://fontello.com"
 
     def initialize(options)
       @options = options
@@ -14,8 +13,8 @@ module FontelloRailsConverter
     def open
       puts red("please provide a config file") and exit if @options[:config_file].nil?
 
-      session_id = RestClient.post "#{FONTELLO_HOST}", :config => File.new(@options[:config_file], 'rb')
-      Launchy.open("#{FONTELLO_HOST}/#{session_id}")
+      fontello_api = FontelloApi.new @options
+      Launchy.open fontello_api.session_url
     end
 
     def convert
