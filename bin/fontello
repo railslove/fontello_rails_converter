@@ -54,8 +54,8 @@ OptionParser.new do |opts|
 end.parse!
 
 
-unless ["open", "convert"].include?(command)
-	puts "available commands: open, convert"
+unless ["open", "download", "convert"].include?(command)
+	puts "available commands: open, download, convert"
 	exit
 end
 

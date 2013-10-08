@@ -17,8 +17,9 @@ module FontelloRailsConverter
       "#{FONTELLO_HOST}/#{session_id}"
     end
 
-    def download_zip
-      resp = RestClient.get "#{session_url}/get"
+    def download_zip_body
+      response = RestClient.get "#{session_url}/get"
+      response.body
     end
   end
 end

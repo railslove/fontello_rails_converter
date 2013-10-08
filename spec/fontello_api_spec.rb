@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe FontelloRailsConverter::FontelloApi do
-  subject { described_class.new config_file: File.expand_path('../fixtures/config.json', __FILE__) }
+  subject { described_class.new config_file: File.expand_path('../fixtures/minimal-config.json', __FILE__) }
 
   describe '#session_url' do
     before do
@@ -13,10 +13,11 @@ describe FontelloRailsConverter::FontelloApi do
     end
   end
 
-  describe '#download' do
-    specify do
-      pending
-      # subject.download_zip
+  describe '#download_zip_body' do
+    it 'should be a long string with the body of the zip file' do
+      zip_body = subject.download_zip_body
+      expect(zip_body).to be_instance_of String
+      expect(zip_body).to include "makerist.ttf"
     end
   end
 end

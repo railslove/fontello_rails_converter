@@ -8,13 +8,19 @@ module FontelloRailsConverter
 
     def initialize(options)
       @options = options
+      @fontello_api = FontelloApi.new @options
     end
 
     def open
       puts red("please provide a config file") and exit if @options[:config_file].nil?
+      Launchy.open @fontello_api.session_url
+    end
 
-      fontello_api = FontelloApi.new @options
-      Launchy.open fontello_api.session_url
+    def download
+      puts red("please provide a zip file location") and exit if @options[:zip_file].nil?
+      File.open(@options[:zip_file], "w") do |file|
+        file.write @fontello_api.download_zip_body
+      end
     end
 
     def convert
