@@ -2,6 +2,9 @@
 
 Rake task to be run on .zip file downloaded from fontello.com.  It will copy all the assets to the appropiate places in your Rails app and convert them where necessary.
 
+***STATUS***:  We are in the process (in the `master` branch) of changing this gem to a little CLI utility that should not require rake tasks anymore and should be independent of Rails.
+
+
 ## Usage
 
 1. Add the gem to your Gemfile `gem 'fontello_rails_converter'` and run `bundle install`
