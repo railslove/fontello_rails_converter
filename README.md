@@ -4,9 +4,9 @@ CLI gem for comfortably working with icon fonts (open, download, convert) from [
 
 Included features:
 
-* Open up the current fontello font in the browser
-* Download font zip file from fontello
-* Copy & convert files from the zip into rails app (inclusively Sass enhancements)
+* **Open** up the current fontello font in the browser
+* **Download** font zip file from fontello
+* **Copy & convert** files from the zip into rails app (inclusively Sass enhancements)
 
 
 ## Initial usage
@@ -17,8 +17,10 @@ Included features:
 
 1. In order for the fonts in `vendor/assets/fonts/` to be served up through the Rails asset pipeline, you will need tell it about your vendor fonts directory, using this:
 
-    # config/application.rb
-    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+```ruby
+# config/application.rb
+config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+```
 
 #### Get your icon font
 
