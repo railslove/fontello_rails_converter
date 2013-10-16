@@ -1,5 +1,7 @@
-desc "import new zipfile from fontello"
+desc "[deprecated] import new zipfile from fontello"
 task :import_fontello, [:zipfile] => :environment do |t, args|
+  puts "THIS RAKE TASK IS DEPRECATED AND WILL BE REMOVED IN THE NEXT VERSION"
+
   include FontelloRailsConverter::ColorizedOutput
   require 'zip'
 
