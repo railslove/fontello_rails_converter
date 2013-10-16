@@ -9,34 +9,40 @@ if ARGV[0].nil?
 	exit
 end
 
-options = {
-	:asset_dir => "./",
-	:stylesheet_dir => "./",
-	:font_dir => "./",
-	:zip_file => "./fontello.zip",
-	:config_file => "./config.json"
-}
+def options_based_on_rails_root(options)
+  options[:asset_dir] = "#{options[:rails_root_dir]}/vendor/assets"
+  options.merge!({
+    stylesheet_dir: "#{options[:asset_dir]}/stylesheets",
+    font_dir: "#{options[:asset_dir]}/fonts",
+    zip_file: "#{options[:rails_root_dir]}/tmp/fontello.zip",
+    config_file: "#{options[:asset_dir]}/fonts/config.json"
+  })
+end
+
+options = { rails_root_dir: "." } # default
+options = options_based_on_rails_root(options)
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: fontello [open|download|convert] -r /path/to/railsapp [override options]"
+  opts.banner = "Usage: fontello open|download|convert [options]\n\n"
 
-  opts.on("-r", "--rails-root [PATH]", "Rails root path\n\n") do |opt|
-    options[:asset_dir] = "#{opt}/vendor/assets"
-    options = {
-      stylesheets_dir: "#{options[:asset_dir]}/stylesheets",
-      font_dir: "#{options[:asset_dir]}/fonts",
-      zip_file: "#{opt}/tmp/fontello.zip",
-      config_file: "#{options[:asset_dir]}/fonts/config.json"
-    }
+  opts.separator "Most important options:"
+
+  opts.on("-r", "--rails-root [PATH]", "Rails root path") do |opt|
+    options[:rails_root_dir] = opt
+    options = options_based_on_rails_root(options)
   end
 
-  opts.separator "Override options:"
+  opts.on("-i", "--fontello-session-id [ID]", "Session ID from fontello.com (e.g. fb235ab72cad01d2b46aaa023ab4abbd)\n\n") do |opt|
+    options[:fontello_session_id] = opt
+  end
 
-	opts.on("-c", "--config [PATH]", "Config json file (default: /rails_root/vendor/assets/fonts/config.json)") do |opt|
+  opts.separator "Optional override options (defaults are set based on rails root):"
+
+	opts.on("-c", "--config-file [PATH]", "config.json file (default: /rails_root/vendor/assets/fonts/config.json)") do |opt|
 		options[:config_file] = opt
 	end
 
-	opts.on("-i", "--input [PATH]", "Downloaded zip file (default: /rails_root/tmp/fontello.zip)") do |opt|
+	opts.on("-z", "--zip-file [PATH]", "Downloaded zip file (default: /rails_root/tmp/fontello.zip)") do |opt|
 		options[:zip_file] = opt
 	end
 
@@ -51,6 +57,11 @@ OptionParser.new do |opts|
   opts.on("-f", "--font-dir [PATH]", "Target font directory (default: /rails_root/vendor/assets/fonts)") do |opt|
     options[:font_dir] = opt
   end
+
+  opts.separator "\nExamples:\n"\
+                 "    fontello open -r /path/to/railsapp\n"\
+                 "    fontello download -i fb235ab72cad01d2b46aaa023ab4abbd\n"\
+                 "    fontello convert\n"
 end.parse!
 
 
