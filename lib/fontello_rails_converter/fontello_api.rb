@@ -7,6 +7,7 @@ module FontelloRailsConverter
 
     def initialize(options)
       @config_file = options[:config_file]
+      @session_id = options[:fontello_session_id]
     end
 
     def session_id
