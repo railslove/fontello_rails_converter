@@ -1,17 +1,19 @@
 ## fontello_rails_converter
 
-Rake task to be run on .zip file downloaded from fontello.com.  It will copy all the assets to the appropiate places in your Rails app and convert them where necessary.
+CLI gem for comfortably working with icons fonts from [http://fontello.com](http://fontello.com).  Included features:
 
-***STATUS***:  We are in the process (in the `master` branch) of changing this gem to a little CLI utility that should not require rake tasks anymore and should be independent of Rails.
+* Open up the current fontello font in the browser
+* Download font zip file from fontello
+* Copy & convert files from the zip into rails app (inclusively Sass enhancements)
 
 
-## Usage
+## Initial usage
 
 1. Add the gem to your Gemfile `gem 'fontello_rails_converter'` and run `bundle install`
 
-1. Download `.zip` file from [http://fontello.com](http://fontello.com) and copy it to your app directory, e.g. into `myapp/tmp/`
+1. Download your initial `.zip` file from [http://fontello.com](http://fontello.com) and copy it to `myapp/tmp/fontello.zip`
 
-1. Run the rake task `rake import_fontello["tmp/fontello-b9661c9f.zip"]`
+1. Run `fontello convert` inside your app's root directory
 
 It will copy all the assets from the fontello .zip file into the appropiate places in your app's `vendor/assets/` directory.
 
@@ -23,18 +25,18 @@ In order for the fonts in `vendor/assets/fonts/` to be served up through the Rai
 
 You can check if the icon font is working correctly by visiting [http://localhost:3000/demo.html](http://localhost:3000/demo.html).
 
-## Updating your font
 
-When you want to add new icons to your fontello font, just grab the `config.json` from `vendor/assets/fonts/` upload it to fontello, select new icons, download the .zip file and start at step 1.
+## Updating your fontello font
 
-## TODO
+When you want to add new icons to your fontello font you can open it in the browser using `fontello open` and select all the icons you want to add.
 
-Fontello recently added an API ([https://github.com/fontello/fontello#developers-api](https://github.com/fontello/fontello#developers-api)), which would save us all the .zip file downloading hassle.
+Next you can either download the `.zip` file, as described in the initial usage, or you can save the session and copy the fontello session id (from the URL) and download the `.zip` file with `fontello download -id {1234myfontelloid5678}`.
 
+Finally you run `fontello convert` again.
 
+## More help
 
-
-
+For more help check out `fontello --help`
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/railslove/fontello_rails_converter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
