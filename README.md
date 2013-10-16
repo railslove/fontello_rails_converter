@@ -1,6 +1,8 @@
 ## fontello_rails_converter
 
-CLI gem for comfortably working with icons fonts from [http://fontello.com](http://fontello.com).  Included features:
+CLI gem for comfortably working with icon fonts (open, download, convert) from [http://fontello.com](http://fontello.com) for usage in Rails apps.
+
+Included features:
 
 * Open up the current fontello font in the browser
 * Download font zip file from fontello
@@ -9,19 +11,26 @@ CLI gem for comfortably working with icons fonts from [http://fontello.com](http
 
 ## Initial usage
 
+#### Rails app setup
+
 1. Add the gem to your Gemfile `gem 'fontello_rails_converter'` and run `bundle install`
 
-1. Download your initial `.zip` file from [http://fontello.com](http://fontello.com) and copy it to `myapp/tmp/fontello.zip`
+1. In order for the fonts in `vendor/assets/fonts/` to be served up through the Rails asset pipeline, you will need tell it about your vendor fonts directory, using this:
+
+    # config/application.rb
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
+#### Get your icon font
+
+1. Download your initial `.zip` file from [http://fontello.com](http://fontello.com) and save it to `myapp/tmp/fontello.zip`
 
 1. Run `fontello convert` inside your app's root directory
 
-It will copy all the assets from the fontello .zip file into the appropiate places in your app's `vendor/assets/` directory.
+It will copy all the assets from the `fontello.zip` file into the appropiate places in your app's `vendor/assets/` directory.
 
-To use them in your app you will need to `@import` the main stylesheet `vendor/assets/stylesheets/fontname.css.scss` in your `application.css.sass` using `@import 'fontname'`.  For special cases you might also want `@import` some of the other stylesheets (`fontname-ie7-codes.css.scss`, `fontname-embedded.css.scss`, `animation.css.scss`, `fontname-ie7.css.scss`, `fontname-codes.css.scss`).
+#### Use the font in your app
 
-In order for the fonts in `vendor/assets/fonts/` to be served up through the Rails asset pipeline, you will need tell it about font directories, by adding this to your `application.rb`:
-
-    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+To use your font in your app you will need to `@import` the main stylesheet `vendor/assets/stylesheets/fontname.css.scss` in your `application.css.sass` using `@import 'fontname'`.
 
 You can check if the icon font is working correctly by visiting [http://localhost:3000/demo.html](http://localhost:3000/demo.html).
 
@@ -36,7 +45,13 @@ Finally you run `fontello convert` again.
 
 ## More help
 
-For more help check out `fontello --help`
+For more help run `fontello --help`
+
+## Misc
+
+#### Additional fontello stylesheets
+
+Besides the main stylesheet (`fontname.css.scss`) fontello also provides a couple of additional stylesheets that you might want to `@import` in your app for special use cases:  `fontname-ie7-codes.css.scss`, `fontname-embedded.css.scss`, `animation.css.scss`, `fontname-ie7.css.scss`, `fontname-codes.css.scss`
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/railslove/fontello_rails_converter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
