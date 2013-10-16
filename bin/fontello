@@ -5,8 +5,8 @@ require "fontello_rails_converter"
 command = ARGV[0]
 
 if ARGV[0].nil?
-	puts "Run fontello --help for help"
-	exit
+  puts "Run fontello --help for help"
+  exit
 end
 
 def options_based_on_rails_root(options)
@@ -38,13 +38,13 @@ OptionParser.new do |opts|
 
   opts.separator "Optional override options (defaults are set based on rails root):"
 
-	opts.on("-c", "--config-file [PATH]", "config.json file (default: /rails_root/vendor/assets/fonts/config.json)") do |opt|
-		options[:config_file] = opt
-	end
+  opts.on("-c", "--config-file [PATH]", "config.json file (default: /rails_root/vendor/assets/fonts/config.json)") do |opt|
+    options[:config_file] = opt
+  end
 
-	opts.on("-z", "--zip-file [PATH]", "Downloaded zip file (default: /rails_root/tmp/fontello.zip)") do |opt|
-		options[:zip_file] = opt
-	end
+  opts.on("-z", "--zip-file [PATH]", "Downloaded zip file (default: /rails_root/tmp/fontello.zip)") do |opt|
+    options[:zip_file] = opt
+  end
 
   opts.on("-a", "--asset-dir [PATH]", "Target asset directory (default: /rails_root/vendor/assets)") do |opt|
     options[:asset_dir] = opt
@@ -66,9 +66,8 @@ end.parse!
 
 
 unless ["open", "download", "convert"].include?(command)
-	puts "available commands: open, download, convert"
-	exit
+  puts "available commands: open, download, convert"
+  exit
 end
 
 FontelloRailsConverter::Cli.new(options).send(command)
-
