@@ -12,22 +12,19 @@ module FontelloRailsConverter
     end
 
     def open
-      puts red("please provide a config file") and exit if @options[:config_file].nil?
       Launchy.open @fontello_api.session_url
     end
 
     def download
-      puts red("please provide a zip file location") and exit if @options[:zip_file].nil?
       File.open(@options[:zip_file], "w") do |file|
         file.write @fontello_api.download_zip_body
       end
     end
 
     def convert
-      puts red("please provide the required options") and exit if @options[:zip_file].nil? || @options[:stylesheet_dir].nil? || @options[:font_dir].nil?
       self.prepare_directories
 
-      Zip::ZipFile.open(@options[:zip_file]) do |zipfile|
+      Zip::File.open(@options[:zip_file]) do |zipfile|
         zipfile.each do |file|
           filename = file.to_s.split("/").last
 
