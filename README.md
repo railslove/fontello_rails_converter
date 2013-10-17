@@ -34,7 +34,7 @@ It will copy all the assets from the `fontello.zip` file into the appropiate pla
 
 To use your font in your app you will need to `@import` the main stylesheet `vendor/assets/stylesheets/fontname.css.scss` in your `application.css.sass` using `@import 'fontname'`.
 
-You can check if the icon font is working correctly by visiting [http://localhost:3000/demo.html](http://localhost:3000/demo.html).
+You can check if the icon font is working correctly by visiting [http://localhost:3000/fontello-demo.html](http://localhost:3000/fontello-demo.html).
 
 
 ## Updating your fontello font
