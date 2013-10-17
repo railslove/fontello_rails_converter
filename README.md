@@ -13,14 +13,7 @@ Included features:
 
 #### Rails app setup
 
-1. Add the gem to your Gemfile `gem 'fontello_rails_converter'` and run `bundle install`
-
-1. In order for the fonts in `vendor/assets/fonts/` to be served up through the Rails asset pipeline, you will need tell it about your vendor fonts directory, using this:
-
-```ruby
-# config/application.rb
-config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
-```
+Add the gem to your Gemfile `gem 'fontello_rails_converter'` and run `bundle install`
 
 #### Get your icon font
 
