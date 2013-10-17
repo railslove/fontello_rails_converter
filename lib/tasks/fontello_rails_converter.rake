@@ -76,7 +76,7 @@ task :import_fontello, [:zipfile] => :environment do |t, args|
 
       # demo.html
       elsif filename == 'demo.html'
-        target_file = File.join Rails.root, "public", filename
+        target_file = File.join Rails.root, "public", "fontello-demo.html"
         zipfile.extract(file, target_file) { true }
         puts green("copied #{target_file}")
 
