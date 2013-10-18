@@ -1,11 +1,10 @@
 ## fontello_rails_converter
 
-CLI gem for comfortably working with icon fonts (open, download, convert) from [http://fontello.com](http://fontello.com) for usage in Rails apps.
+CLI gem for comfortably working with icon fonts from [http://fontello.com](http://fontello.com) for usage in Rails apps.
 
-Included features:
+Main features:
 
-* **Open** up the current fontello font in the browser
-* **Download** font zip file from fontello
+* **Open** up your current fontello font in the browser from the command line
 * **Copy & convert** files from the zip into rails app (inclusively Sass enhancements)
 
 
@@ -30,13 +29,13 @@ To use your font in your app you will need to `@import` the main stylesheet `ven
 You can check if the icon font is working correctly by visiting [http://localhost:3000/fontello-demo.html](http://localhost:3000/fontello-demo.html).
 
 
-## Updating your fontello font
+## Updating your existing fontello font
 
-When you want to add new icons to your fontello font you can open it in the browser using `fontello open` and select all the icons you want to add.
+When you want to add new icons to your existing fontello font you can open it in the browser by using `fontello open` and select all the additional icons you want to add.
 
-Next you can either download the `.zip` file, as described in the initial usage, or you can save the session and copy the fontello session id (from the URL) and download the `.zip` file with `fontello download -id {1234myfontelloid5678}`.
+Next you click the 'Save session' button on the fontello website. After that you can download, copy and convert the changed font by running `fontello convert` (it has persisted the session id in `tmp/fontello_session_id` and will used that to pull down your changed font).
 
-Finally you run `fontello convert` again.
+Alternatively, you can download & save the `.zip` file just like in the initial setp and run `fontello convert --no-download` to use the manually downloaded file instead of pulling it down from fontello.
 
 ## More help
 
@@ -48,6 +47,7 @@ For more help run `fontello --help`
 
 Besides the main stylesheet (`fontname.css.scss`) fontello also provides a couple of additional stylesheets that you might want to `@import` in your app for special use cases:  `fontname-ie7-codes.css.scss`, `fontname-embedded.css.scss`, `animation.css.scss`, `fontname-ie7.css.scss`, `fontname-codes.css.scss`
 
+----
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/railslove/fontello_rails_converter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

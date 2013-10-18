@@ -24,7 +24,7 @@ module FontelloRailsConverter
     end
 
     def convert
-      self.download  unless @options[:no_download] == true
+      self.download  unless @options[:no_download] == true || !config_file_exists?
       self.prepare_directories
 
       Zip::File.open(@options[:zip_file]) do |zipfile|
@@ -49,6 +49,16 @@ module FontelloRailsConverter
             target_file = File.join @options[:font_dir], filename
             zipfile.extract(file, target_file) { true }
             puts green("copied #{target_file}")
+
+          # demo.html
+          elsif filename == 'demo.html'
+            target_file = File.join @options[:rails_root_dir], "public", "fontello-demo.html"
+            zipfile.extract(file, target_file) { true }
+            puts green("copied #{target_file}")
+
+            converted_html = convert_demo_html File.read(target_file)
+            File.open(target_file, 'w') { |f| f.write(converted_html) }
+            puts green("converted #{filename}'s HTML for asset pipeline")
           end
 
         end
@@ -85,6 +95,16 @@ module FontelloRailsConverter
 
       return content
     end
+
+    private
+
+      def config_file_exists?
+        @options[:config_file] && File.exist?(@options[:config_file])
+      end
+
+      def convert_demo_html(content)
+        content.gsub! /css\//, "/assets/"
+      end
 
   end
 end
