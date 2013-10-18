@@ -12,16 +12,19 @@ module FontelloRailsConverter
     end
 
     def open
+      @fontello_api.new_session_from_config  unless @options[:open_existing] == true
       Launchy.open @fontello_api.session_url
     end
 
     def download
-      File.open(@options[:zip_file], "w") do |file|
+      @fontello_api.new_session_from_config  if @options[:use_config] == true
+      File.open(@options[:zip_file], "w+") do |file|
         file.write @fontello_api.download_zip_body
       end
     end
 
     def convert
+      self.download  unless @options[:no_download] == true
       self.prepare_directories
 
       Zip::File.open(@options[:zip_file]) do |zipfile|

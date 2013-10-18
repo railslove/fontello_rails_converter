@@ -15,7 +15,8 @@ def options_based_on_rails_root(options)
     stylesheet_dir: "#{options[:asset_dir]}/stylesheets",
     font_dir: "#{options[:asset_dir]}/fonts",
     zip_file: "#{options[:rails_root_dir]}/tmp/fontello.zip",
-    config_file: "#{options[:asset_dir]}/fonts/config.json"
+    config_file: "#{options[:asset_dir]}/fonts/config.json",
+    fontello_session_id_file: "#{options[:rails_root_dir]}/tmp/fontello_session_id"
   })
 end
 
@@ -23,20 +24,40 @@ options = { rails_root_dir: "." } # default
 options = options_based_on_rails_root(options)
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: fontello open|download|convert [options]\n\n"
+  opts.banner = "Usage: fontello COMMAND [options]\n\n"
 
-  opts.separator "Most important options:"
+  opts.separator "Available commands: open, convert, download\n\n"
 
-  opts.on("-r", "--rails-root [PATH]", "Rails root path") do |opt|
-    options[:rails_root_dir] = opt
-    options = options_based_on_rails_root(options)
-  end
+  opts.separator "Global options:"
 
-  opts.on("-i", "--fontello-session-id [ID]", "Session ID from fontello.com (e.g. fb235ab72cad01d2b46aaa023ab4abbd)\n\n") do |opt|
+  opts.on("-i", "--fontello-session-id [ID]", "Pass in session ID from fontello.com (e.g. fb235ab72cad01d2b46aaa023ab4abbd) otherwise it will be taken from session-id-file\n\n") do |opt|
     options[:fontello_session_id] = opt
   end
 
-  opts.separator "Optional override options (defaults are set based on rails root):"
+  opts.separator "`open` options:"
+
+  opts.on("-e", "--open-existing", "Doesn't open fontello based on config.json, but based on passed in or persisted sesssion id\n\n") do |opt|
+    options[:open_existing] = true
+  end
+
+  opts.separator "`convert` options:"
+
+  opts.on("-n", "--no-download", "Converts existing .zip file without automatically downloading a new one\n\n") do |opt|
+    options[:no_download] = true
+  end
+
+  opts.separator "`download` options:"
+
+  opts.on("-u", "--use-config", "Uses existing config.json instead of persisted or passed in fontello session ID\n\n") do |opt|
+    options[:use_config] = true
+  end
+
+  opts.separator "Path options:"
+
+  opts.on("-r", "--rails-root [PATH]", "Rails root path (default: current location)") do |opt|
+    options[:rails_root_dir] = opt
+    options = options_based_on_rails_root(options)
+  end
 
   opts.on("-c", "--config-file [PATH]", "config.json file (default: /rails_root/vendor/assets/fonts/config.json)") do |opt|
     options[:config_file] = opt
@@ -58,10 +79,14 @@ OptionParser.new do |opts|
     options[:font_dir] = opt
   end
 
+  opts.on("-p", "--session-id-file [PATH]", "File to persist fontello session ID (default: /rails_root/tmp/fontello_session_id)") do |opt|
+    options[:font_dir] = opt
+  end
+
   opts.separator "\nExamples:\n"\
                  "    fontello open -r /path/to/railsapp\n"\
-                 "    fontello download -i fb235ab72cad01d2b46aaa023ab4abbd\n"\
-                 "    fontello convert\n"
+                 "    fontello convert\n"\
+                 "    fontello download -e -i fb235ab72cad01d2b46aaa023ab4abbd\n"
 end.parse!
 
 
