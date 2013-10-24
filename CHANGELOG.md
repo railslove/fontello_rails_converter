@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.1.1
+
+* only an update to the gemspec description
+
 ### 0.1.0
 
 * convert the gem to a CLI tool with `open` and `convert` commands
