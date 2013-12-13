@@ -5,7 +5,8 @@ module FontelloRailsConverter
     end
 
     initializer "fontello_rails_converter.setup" do |app|
-      app.config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+      app.config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
+      app.config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     end
   end
 end
