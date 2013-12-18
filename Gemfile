@@ -4,4 +4,5 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rails-dummy'
+gem 'rails'
 gem 'sqlite3' # dummy app dependency
