@@ -1,5 +1,5 @@
 module FontelloRailsConverter
-  # for colorized output in the rake task
+  # for colorized output
   module ColorizedOutput
     def colorize(text, color_code)
       "\033[#{color_code}m#{text}\033[0m"
