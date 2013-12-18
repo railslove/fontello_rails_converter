@@ -1,5 +1,7 @@
 ## fontello_rails_converter
 
+[![Build Status](https://travis-ci.org/railslove/fontello_rails_converter.png?branch=master)](https://travis-ci.org/railslove/fontello_rails_converter)
+
 CLI gem for comfortably working with icon fonts from [http://fontello.com](http://fontello.com) for usage in Rails apps.
 
 Main features:
