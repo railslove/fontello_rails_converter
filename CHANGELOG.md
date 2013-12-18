@@ -1,5 +1,10 @@
 # Changelog
 
+### master (unreleased)
+
+* allow setting global options using a .yml file (e.g. /rails_root/config/fontello_rails_converter.yml)
+* allow configuration of the stylesheet extension for the SCSS files (`.css.scss` or `.scss`)
+
 ### 0.2.0
 
 * removed deprecated rake task
