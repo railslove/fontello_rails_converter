@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
+require 'yaml'
 require "fontello_rails_converter"
 command = ARGV[0]
 
@@ -9,19 +10,34 @@ if ARGV[0].nil?
   exit
 end
 
-def options_based_on_rails_root(options)
+def set_options_based_on_rails_root(options)
   options[:asset_dir] = "#{options[:rails_root_dir]}/vendor/assets"
   options.merge!({
     stylesheet_dir: "#{options[:asset_dir]}/stylesheets",
     font_dir: "#{options[:asset_dir]}/fonts",
     zip_file: "#{options[:rails_root_dir]}/tmp/fontello.zip",
     config_file: "#{options[:asset_dir]}/fonts/config.json",
-    fontello_session_id_file: "#{options[:rails_root_dir]}/tmp/fontello_session_id"
+    fontello_session_id_file: "#{options[:rails_root_dir]}/tmp/fontello_session_id",
+    options_file: "#{options[:rails_root_dir]}/config/fontello_rails_converter.yml"
   })
 end
 
-options = { rails_root_dir: "." } # default
-options = options_based_on_rails_root(options)
+def set_options_from_file(options)
+  if File.exist?(options[:options_file])
+    options_from_file = YAML.load_file options[:options_file]
+    options_from_file.each do |key, value|
+      options[key.to_sym] = value  if options.keys.include?(key.to_sym)
+    end
+  end
+end
+
+# defaults
+options = {
+  rails_root_dir: '.',
+  stylesheet_extension: '.css.scsss'
+}
+set_options_based_on_rails_root(options)
+set_options_from_file(options)
 
 OptionParser.new do |opts|
   opts.banner = "Usage: fontello COMMAND [options]\n\n"
@@ -29,6 +45,11 @@ OptionParser.new do |opts|
   opts.separator "Available commands: open, convert, download\n\n"
 
   opts.separator "Global options:"
+
+  opts.on("-o", "--options-file [PATH]", "options .yml file (default: /rails_root/config/fontello_rails_converter.yml)") do |opt|
+    options[:options_file] = opt
+    set_options_from_file(options)
+  end
 
   opts.on("-i", "--fontello-session-id [ID]", "Pass in session ID from fontello.com (e.g. fb235ab72cad01d2b46aaa023ab4abbd) otherwise it will be taken from session-id-file\n\n") do |opt|
     options[:fontello_session_id] = opt
@@ -42,7 +63,11 @@ OptionParser.new do |opts|
 
   opts.separator "`convert` options:"
 
-  opts.on("-n", "--no-download", "Converts existing .zip file without automatically downloading a new one\n\n") do |opt|
+  opts.on("-n", "--no-download", "Converts existing .zip file without automatically downloading a new one") do |opt|
+    options[:no_download] = true
+  end
+
+  opts.on("--stylesheet-extension", "Pick between e.g. '.css.scss' or '.scss'\n\n") do |opt|
     options[:no_download] = true
   end
 
@@ -56,7 +81,7 @@ OptionParser.new do |opts|
 
   opts.on("-r", "--rails-root [PATH]", "Rails root path (default: current location)") do |opt|
     options[:rails_root_dir] = opt
-    options = options_based_on_rails_root(options)
+    set_options_based_on_rails_root(options)
   end
 
   opts.on("-c", "--config-file [PATH]", "config.json file (default: /rails_root/vendor/assets/fonts/config.json)") do |opt|

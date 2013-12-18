@@ -34,7 +34,7 @@ module FontelloRailsConverter
           # stylesheets
           if filename.end_with? '.css'
             # extract stylesheet to target location
-            target_file = File.join @options[:stylesheet_dir], "#{filename}.scss"
+            target_file = File.join @options[:stylesheet_dir], filename.gsub('.css', @options[:stylesheet_extension])
             zipfile.extract(file, target_file) { true }
             puts green("copied #{target_file}")
 
