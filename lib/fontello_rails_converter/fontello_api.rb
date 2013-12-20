@@ -24,7 +24,7 @@ module FontelloRailsConverter
 
     def download_zip_body
       response = RestClient.get "#{session_url}/get"
-      response.body
+      response.body.force_encoding("UTF-8")
     end
 
     private
