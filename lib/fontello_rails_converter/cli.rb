@@ -39,7 +39,7 @@ module FontelloRailsConverter
             puts green("copied #{target_file}")
 
             if !filename.end_with? "animation.css", "-ie7.css", "-codes.css", "-ie7-codes.css", "-embedded.css"
-              converted_css = self.convert_main_stylesheet File.read(target_file)
+              converted_css = self.convert_main_stylesheet File.read(target_file).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
               File.open(target_file, 'w') { |f| f.write(converted_css) }
               puts green("converted #{target_file} for Sass & asset pipeline")
             end
