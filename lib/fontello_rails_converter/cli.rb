@@ -12,8 +12,14 @@ module FontelloRailsConverter
     end
 
     def open
-      @fontello_api.new_session_from_config  unless @options[:open_existing] == true
-      Launchy.open @fontello_api.session_url
+      if config_file_exists?
+        @fontello_api.new_session_from_config  unless @options[:open_existing] == true
+        Launchy.open @fontello_api.session_url
+      else
+        puts red("there's no config file yet!")
+        puts red("follow these instructions: https://github.com/railslove/fontello_rails_converter#initial-usage")
+        puts red("to setup your project")
+      end
     end
 
     def download
