@@ -1,9 +1,11 @@
 # Changelog
 
-### master (unreleased)
+### 0.3.0
 
 * allow setting global options using a .yml file (e.g. /rails_root/config/fontello_rails_converter.yml)
 * allow configuration of the stylesheet extension for the SCSS files (`.css.scss` or `.scss`)
+* fail gracefully when there is no config file yet (90ec5942383cc5558a097aa78c4adcc809ab6a0e)
+* fixes for 2 encoding issues #11 and #12 by @hqm42
 
 ### 0.2.0
 
