@@ -108,6 +108,11 @@ OptionParser.new do |opts|
     options[:font_dir] = opt
   end
 
+  opts.on_tail("-v", "--version", "Show version") do
+    puts FontelloRailsConverter::VERSION
+    exit
+  end
+
   opts.separator "\nExamples:\n"\
                  "    fontello open -r /path/to/railsapp\n"\
                  "    fontello convert\n"\

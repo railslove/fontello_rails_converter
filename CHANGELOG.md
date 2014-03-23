@@ -1,5 +1,9 @@
 # Changelog
 
+### master (unreleased)
+
+* add `-v`/`--version` switch to CLI for printing out the current version
+
 ### 0.3.0
 
 * allow setting global options using a .yml file (e.g. /rails_root/config/fontello_rails_converter.yml)
