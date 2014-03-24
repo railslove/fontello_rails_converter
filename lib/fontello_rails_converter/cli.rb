@@ -60,6 +60,7 @@ module FontelloRailsConverter
         FileUtils.mkdir_p @options[:font_dir]
         FileUtils.mkdir_p @options[:stylesheet_dir]
         FileUtils.mkdir_p @options[:asset_dir]
+        FileUtils.mkdir_p @options[:icon_guide_dir]
       end
 
       def convert_main_stylesheet(content)
@@ -119,7 +120,7 @@ module FontelloRailsConverter
       def copy_and_convert_icon_guide(zipfile, demo_file)
         puts "icon guide (demo.html):"
 
-        target_file = File.join @options[:rails_root_dir], "public", "fontello-demo.html"
+        target_file = File.join @options[:icon_guide_dir], "fontello-demo.html"
         zipfile.extract(demo_file, target_file) { true }
         puts green("Copied #{target_file}")
 

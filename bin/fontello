@@ -15,6 +15,7 @@ def set_options_based_on_rails_root(options)
   options.merge!({
     stylesheet_dir: "#{options[:asset_dir]}/stylesheets",
     font_dir: "#{options[:asset_dir]}/fonts",
+    icon_guide_dir: "#{options[:rails_root_dir]}/public",
     zip_file: "#{options[:rails_root_dir]}/tmp/fontello.zip",
     config_file: "#{options[:asset_dir]}/fonts/config.json",
     fontello_session_id_file: "#{options[:rails_root_dir]}/tmp/fontello_session_id",
@@ -103,6 +104,10 @@ OptionParser.new do |opts|
 
   opts.on("-f", "--font-dir [PATH]", "Target font directory (default: /rails_root/vendor/assets/fonts)") do |opt|
     options[:font_dir] = opt
+  end
+
+  opts.on("--icon-guide-dir [PATH]", "Target icon guide (fontello-demo.html) directory (default: /rails_root/public)") do |opt|
+    options[:icon_guide_dir] = opt
   end
 
   opts.on("-p", "--session-id-file [PATH]", "File to persist fontello session ID (default: /rails_root/tmp/fontello_session_id)") do |opt|

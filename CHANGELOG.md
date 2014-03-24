@@ -2,6 +2,7 @@
 
 ### master (unreleased)
 
+* allow configuration (and automatic creation) of icon guide directory (/rails_root/public/fontello-demo.html)
 * more verbose CLI output
 * add `-v`/`--version` switch to CLI for printing out the current version
 
