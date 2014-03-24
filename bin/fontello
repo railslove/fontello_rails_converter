@@ -24,6 +24,7 @@ end
 
 def set_options_from_file(options)
   if File.exist?(options[:options_file])
+    puts "Loading options from #{options[:options_file]}"
     options_from_file = YAML.load_file options[:options_file]
     options_from_file.each do |key, value|
       options[key.to_sym] = value  if options.keys.include?(key.to_sym)
@@ -68,7 +69,7 @@ OptionParser.new do |opts|
   end
 
   opts.on("--stylesheet-extension", "Pick between e.g. '.css.scss' or '.scss'\n\n") do |opt|
-    options[:no_download] = true
+    options[:stylesheet_extension] = opt
   end
 
   opts.separator "`download` options:"

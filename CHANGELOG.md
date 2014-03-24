@@ -2,6 +2,7 @@
 
 ### master (unreleased)
 
+* more verbose CLI output
 * add `-v`/`--version` switch to CLI for printing out the current version
 
 ### 0.3.0
