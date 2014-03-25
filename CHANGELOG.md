@@ -1,9 +1,9 @@
 # Changelog
 
-### master (unreleased)
+### 0.3.1
 
-* allow configuration (and automatic creation) of icon guide directory (/rails_root/public/fontello-demo.html)
-* more verbose CLI output
+* allow configuration (and automatic creation) of icon guide directory (/rails_root/public/fontello-demo.html), fixes #19
+* more verbose/helpful CLI output
 * add `-v`/`--version` switch to CLI for printing out the current version
 
 ### 0.3.0
