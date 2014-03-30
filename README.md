@@ -20,7 +20,7 @@ Add the gem to your Gemfile `gem 'fontello_rails_converter'` and run `bundle ins
 
 1. Download your initial `.zip` file from [http://fontello.com](http://fontello.com) and save it to `myapp/tmp/fontello.zip`
 
-1. Run `fontello convert` inside your app's root directory
+1. Run `fontello convert --no-download` inside your app's root directory
 
 It will copy all the assets from the `fontello.zip` file into the appropiate places in your app's `vendor/assets/` directory.
 
