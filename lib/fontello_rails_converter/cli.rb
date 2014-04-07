@@ -22,7 +22,7 @@ module FontelloRailsConverter
     def download
       puts "---- download ----"
 
-      if @options[:use_config] == true && config_file_exists?
+      if config_file_exists? && @options[:use_config] == true
         puts "Using '#{options[:config_file]}' to create new fontello session"
         @fontello_api.new_session_from_config
       end
