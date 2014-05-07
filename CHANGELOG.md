@@ -1,3 +1,7 @@
+# 0.3.2
+
+* [bugfix] the `config.json` wasn't being copied anymore
+
 # 0.3.1
 
 * allow configuration (and automatic creation) of icon guide directory (/rails_root/public/fontello-demo.html), fixes #19

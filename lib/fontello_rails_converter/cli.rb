@@ -49,6 +49,7 @@ module FontelloRailsConverter
 
           copy_and_convert_stylesheets(zipfile, grouped_files['css'])
           copy_font_files(zipfile, grouped_files['font'])
+          copy_config_json(zipfile, grouped_files['config.json'].first)
           copy_and_convert_icon_guide(zipfile, grouped_files['demo.html'].first)
         end
       end
@@ -90,13 +91,20 @@ module FontelloRailsConverter
 
       def copy_font_files(zipfile, files)
         puts "font files:"
-        files.select{ |file| file.to_s.end_with?(".eot", ".woff", ".ttf", ".svg", "config.json") }.each do |file|
+        files.select{ |file| file.to_s.end_with?(".eot", ".woff", ".ttf", ".svg") }.each do |file|
           filename = file.to_s.split("/").last
 
           target_file = File.join @options[:font_dir], filename
           zipfile.extract(file, target_file) { true }
           puts green("Copied #{target_file}")
         end
+      end
+
+      def copy_config_json(zipfile, config_file)
+        puts "config.json:"
+        target_file = File.join @options[:font_dir], config_file.to_s.split("/").last
+        zipfile.extract(config_file, target_file) { true }
+        puts green("Copied #{target_file}")
       end
 
       def copy_and_convert_stylesheets(zipfile, files)
