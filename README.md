@@ -49,6 +49,6 @@ For more help run `fontello --help`
 
 Besides the main stylesheet (`fontname.css.scss`) fontello also provides a couple of additional stylesheets that you might want to `@import` in your app for special use cases:  `fontname-ie7-codes.css.scss`, `fontname-embedded.css.scss`, `animation.css.scss`, `fontname-ie7.css.scss`, `fontname-codes.css.scss`
 
-#### Gemfile enviroment
+#### Gemfile environment
 
 If you don't want to load this gem in your app's production environment to save a tiny bit of memory, you can also just add it to the `:development` group in your Gemfile.  The only thing you might need to change is to tell rails to add `vendor/assets/fonts` to the precompile load paths see: https://github.com/railslove/fontello_rails_converter/blob/master/lib/fontello_rails_converter/railtie.rb
