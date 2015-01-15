@@ -52,3 +52,12 @@ Besides the main stylesheet (`fontname.css.scss`) fontello also provides a coupl
 #### Gemfile environment
 
 If you don't want to load this gem in your app's production environment to save a tiny bit of memory, you can also just add it to the `:development` group in your Gemfile.  The only thing you might need to change is to tell rails to add `vendor/assets/fonts` to the precompile load paths see: https://github.com/railslove/fontello_rails_converter/blob/master/lib/fontello_rails_converter/railtie.rb
+
+### Configuration file
+
+By default the gem will look in `Rails.root.join("config", "fontello_rails_converter.yml")` for configuration options.  You can use this to set default options for the tools.  You may want to do this to use `.scss` as the default extension since `.css.scss` is now deprecated.
+
+```
+# config/fontello_rails_converter.yml
+stylesheet_extension: '.scss'
+```
