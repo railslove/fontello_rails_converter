@@ -67,7 +67,7 @@ module FontelloRailsConverter
       def convert_main_stylesheet(content)
         # asset URLs
         content.gsub! /\.\.\/font\//, ""
-        content.gsub!(/url\(([^\(]+)\)/) { |m| "url(font-path(#{$1}))" }
+        content.gsub!(/url\(([^\(]+)\)/) { |m| "font-url(#{$1})" }
 
         # turn icon base class into placeholder selector
         content.gsub! /\[class\^="icon-[^\{]+{/m, "%icon-base {"
