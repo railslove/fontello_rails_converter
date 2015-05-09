@@ -36,7 +36,7 @@ end
 # defaults
 options = {
   rails_root_dir: '.',
-  stylesheet_extension: '.css.scss'
+  stylesheet_extension: '.scss'
 }
 set_options_based_on_rails_root(options)
 set_options_from_file(options)
