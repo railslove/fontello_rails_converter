@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rubyzip", "~> 1.0"
   spec.add_runtime_dependency "launchy"
   spec.add_runtime_dependency "rest-client"
+  spec.add_runtime_dependency "activesupport"
 end
