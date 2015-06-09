@@ -1,6 +1,7 @@
 # 0.4.0
 
 * added new `copy` command for cases where you don't want to convert assets
+* gem now depends on Ruby 2.x
 
 # 0.3.3
 
