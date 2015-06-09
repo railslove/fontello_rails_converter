@@ -1,3 +1,7 @@
+# 0.4.0
+
+* added new `copy` command for cases where you don't want to convert assets
+
 # 0.3.3
 
 * [improvement] changed default stylesheet file extension from `.css.scss` to `.scss` because of recent change in `sass-rails` (see #26)
