@@ -132,8 +132,10 @@ module FontelloRailsConverter
         zipfile.extract(demo_file, target_file) { true }
         puts green("Copied #{target_file}")
 
-        converted_html = File.read(target_file).gsub! /css\//, "/assets/"
-        File.open(target_file, 'w') { |f| f.write(converted_html) }
+        icon_guide_html = File.read(target_file)
+        icon_guide_html.gsub! /css\//, "/assets/"
+        icon_guide_html.gsub! "url('./font/", "url('./assets/"
+        File.open(target_file, 'w') { |f| f.write(icon_guide_html) }
         puts green("Converted demo.html for asset pipeline")
       end
 
