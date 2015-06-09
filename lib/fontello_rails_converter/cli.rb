@@ -33,26 +33,34 @@ module FontelloRailsConverter
       puts green "Downloaded '#{@options[:zip_file]}' from fontello (#{@fontello_api.session_url})"
     end
 
-    def convert
+    def copy
       if @options[:no_download] == true
         puts "Use existing '#{@options[:zip_file]}' file due to `--no-download` switch"
       else
-        self.download
+        download
       end
 
-      puts "---- convert -----"
+      puts "---- copy -----"
       prepare_directories
 
       if zip_file_exists?
         Zip::File.open(@options[:zip_file]) do |zipfile|
           grouped_files = zipfile.group_by{ |file| file.to_s.split("/")[1] }
 
-          copy_and_convert_stylesheets(zipfile, grouped_files['css'])
+          copy_stylesheets(zipfile, grouped_files['css'])
           copy_font_files(zipfile, grouped_files['font'])
           copy_config_json(zipfile, grouped_files['config.json'].first)
-          copy_and_convert_icon_guide(zipfile, grouped_files['demo.html'].first)
+          copy_icon_guide(zipfile, grouped_files['demo.html'].first)
         end
       end
+    end
+
+    def convert
+      copy
+
+      puts "---- convert -----"
+      convert_main_stylesheet
+      convert_icon_guide
     end
 
     private
@@ -64,7 +72,9 @@ module FontelloRailsConverter
         FileUtils.mkdir_p @options[:icon_guide_dir]
       end
 
-      def convert_main_stylesheet(content)
+      def convert_main_stylesheet
+        content = File.read(main_stylesheet_file).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+
         # asset URLs
         content.gsub! /\.\.\/font\//, ""
         content.gsub!(/url\(([^\(]+)\)/) { |m| "font-url(#{$1})" }
@@ -86,7 +96,9 @@ module FontelloRailsConverter
           end
         end
 
-        return content
+        target_file = main_stylesheet_file(extension: @options[:stylesheet_extension])
+        File.open(target_file, 'w') { |f| f.write(content) }
+        puts green("Created #{target_file} for Sass & asset pipeline")
       end
 
       def copy_font_files(zipfile, files)
@@ -107,40 +119,40 @@ module FontelloRailsConverter
         puts green("Copied #{target_file}")
       end
 
-      def copy_and_convert_stylesheets(zipfile, files)
+      def copy_stylesheets(zipfile, files)
         puts "stylesheets:"
         files.select{ |file| file.to_s.end_with?('.css') }.each do |file|
           filename = file.to_s.split("/").last
 
           # extract stylesheet to target location
-          target_file = File.join @options[:stylesheet_dir], filename.gsub('.css', @options[:stylesheet_extension])
+          target_file = File.join @options[:stylesheet_dir], filename
           zipfile.extract(file, target_file) { true }
           puts green("Copied #{target_file}")
-
-          if !filename.end_with? "animation.css", "-ie7.css", "-codes.css", "-ie7-codes.css", "-embedded.css"
-            converted_css = convert_main_stylesheet File.read(target_file).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-            File.open(target_file, 'w') { |f| f.write(converted_css) }
-            puts green("Converted #{target_file} for Sass & asset pipeline")
-          end
         end
       end
 
-      def copy_and_convert_icon_guide(zipfile, demo_file)
+      def copy_icon_guide(zipfile, demo_file)
         puts "icon guide (demo.html):"
 
-        target_file = File.join @options[:icon_guide_dir], "fontello-demo.html"
-        zipfile.extract(demo_file, target_file) { true }
-        puts green("Copied #{target_file}")
+        zipfile.extract(demo_file, icon_guide_target_file) { true }
+        puts green("Copied #{icon_guide_target_file}")
+      end
 
-        icon_guide_html = File.read(target_file)
-        icon_guide_html.gsub! /css\//, "/assets/"
-        icon_guide_html.gsub! "url('./font/", "url('./assets/"
-        File.open(target_file, 'w') { |f| f.write(icon_guide_html) }
-        puts green("Converted demo.html for asset pipeline")
+      def convert_icon_guide
+        content = File.read(icon_guide_target_file)
+        File.open(icon_guide_target_file, 'w') do |f|
+          f.write self.class.convert_icon_guide_html(content)
+        end
+        puts green("Converted demo.html for asset pipeline: #{icon_guide_target_file}")
+      end
+
+      def self.convert_icon_guide_html(content)
+        content.gsub! /css\//, "/assets/"
+        content.gsub! "url('./font/", "url('/assets/"
       end
 
       def config_file_exists?
-        if File.exist?(@options[:config_file])
+        if @options[:config_file] && File.exist?(@options[:config_file])
           true
         else
           puts red("missing config file: #{@options[:config_file]}")
@@ -159,5 +171,20 @@ module FontelloRailsConverter
         end
       end
 
+      def icon_guide_target_file
+        @_icon_guide_target_file ||= File.join(@options[:icon_guide_dir], "fontello-demo.html")
+      end
+
+      def main_stylesheet_file(extension: '.css')
+        if fontello_name.present? && @options[:stylesheet_dir].present?
+          File.join(@options[:stylesheet_dir], "#{fontello_name}#{extension}")
+        end
+      end
+
+      def fontello_name
+        @_fontello_name ||= if config_file_exists?
+          JSON.parse(File.read(@options[:config_file]))['name']
+        end
+      end
   end
 end

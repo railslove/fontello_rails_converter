@@ -44,7 +44,7 @@ set_options_from_file(options)
 OptionParser.new do |opts|
   opts.banner = "Usage: fontello COMMAND [options]\n\n"
 
-  opts.separator "Available commands: open, convert, download\n\n"
+  opts.separator "Available commands: open, convert, copy, download\n\n"
 
   opts.separator "Global options:"
 
@@ -126,8 +126,8 @@ OptionParser.new do |opts|
 end.parse!
 
 
-unless ["open", "download", "convert"].include?(command)
-  puts "available commands: open, download, convert"
+unless ["open", "download", "convert", "copy"].include?(command)
+  puts "available commands: open, download, convert, copy"
   exit
 end
 
