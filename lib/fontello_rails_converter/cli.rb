@@ -183,7 +183,7 @@ module FontelloRailsConverter
 
       def fontello_name
         @_fontello_name ||= if config_file_exists?
-          JSON.parse(File.read(@options[:config_file]))['name']
+          JSON.parse(File.read(@options[:config_file]))['name'].presence || 'fontello'
         end
       end
   end
