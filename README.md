@@ -14,7 +14,7 @@ Main features:
 
 #### Rails app setup
 
-Add the gem to your Gemfile `gem 'fontello_rails_converter'` and run `bundle install`
+Add the gem to your Gemfile `gem 'fontello_rails_converter', :group => :development` and run `bundle install`.
 
 #### Get your icon font
 
