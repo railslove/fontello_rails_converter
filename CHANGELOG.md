@@ -1,3 +1,7 @@
+# 0.4.1
+
+* [bugfix] for case where font name in `config.json` is empty #30
+
 # 0.4.0
 
 * added new `copy` command for cases where you don't want to convert assets
