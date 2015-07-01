@@ -5,23 +5,23 @@ describe FontelloRailsConverter::FontelloApi do
     subject { described_class.new config_file: File.expand_path('../fixtures/minimal-config.json', __FILE__), fontello_session_id_file: File.expand_path('../fixtures/fontello_session_id_persisted', __FILE__) }
 
     before do
-      subject.stub(:persist_session)
+      allow(subject).to receive(:persist_session)
     end
 
     describe '#new_session_from_config' do
       before do
-        RestClient.should_receive(:post).and_return 'NEWIDFROMCONFIG'
+        expect(RestClient).to receive(:post).and_return 'NEWIDFROMCONFIG'
       end
 
       specify do
-        subject.should_receive(:persist_session)
+        expect(subject).to receive(:persist_session)
         expect(subject.new_session_from_config).to eql 'NEWIDFROMCONFIG'
       end
     end
 
     describe '#session_url' do
       before do
-        subject.should_receive(:session_id).and_return "12345"
+        expect(subject).to receive(:session_id).and_return "12345"
       end
 
       specify do
@@ -43,7 +43,7 @@ describe FontelloRailsConverter::FontelloApi do
     describe '#session_id' do
       context 'session_id NOT set on initialization' do
         specify do
-          subject.should_receive(:read_or_create_session).and_return 'foo'
+          expect(subject).to receive(:read_or_create_session).and_return 'foo'
           expect(subject.send(:session_id)).to eql 'foo'
         end
       end
@@ -60,7 +60,7 @@ describe FontelloRailsConverter::FontelloApi do
     describe '#read_or_create_session' do
       context 'read from existing file' do
         specify do
-          subject.should_not_receive(:new_session_from_config)
+          expect(subject).not_to receive(:new_session_from_config)
           expect(subject.send(:read_or_create_session)).to eql 'MYPERSISTEDSESSION'
         end
       end
@@ -71,7 +71,7 @@ describe FontelloRailsConverter::FontelloApi do
         end
 
         specify do
-          subject.should_receive(:new_session_from_config).and_return 'NEWSESSION'
+          expect(subject).to receive(:new_session_from_config).and_return 'NEWSESSION'
           expect(subject.send(:read_or_create_session)).to eql 'NEWSESSION'
         end
       end
@@ -82,7 +82,7 @@ describe FontelloRailsConverter::FontelloApi do
         end
 
         specify do
-          subject.should_receive(:new_session_from_config).and_return 'NEWSESSION'
+          expect(subject).to receive(:new_session_from_config).and_return 'NEWSESSION'
           expect(subject.send(:read_or_create_session)).to eql 'NEWSESSION'
         end
       end
