@@ -29,21 +29,29 @@ describe FontelloRailsConverter::Cli do
   end
 
   describe '#fontello_name' do
-    context 'no config_file set' do
+    context 'no config_file specified' do
       let(:cli) { described_class.new({}) }
       specify do
         expect(cli.send(:fontello_name)).to eql nil
       end
     end
 
-    context 'config file doesnt exist' do
+    context 'specified config file doesnt exist' do
       let(:cli) { described_class.new(config_file: 'foo') }
       specify do
         expect(cli.send(:fontello_name)).to eql nil
       end
     end
 
+    context 'name is empty' do
+      let(:cli) { described_class.new(config_file: 'spec/fixtures/empty_name_config.json') }
+      it 'should fall back to "fontello"' do
+        expect(cli.send(:fontello_name)).to eql 'fontello'
+      end
+    end
+
     context 'correct config file' do
+
       specify do
         expect(cli.send(:fontello_name)).to eql 'makerist'
       end
