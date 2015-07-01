@@ -16,6 +16,8 @@ Main features:
 
 Add the gem to your Gemfile `gem 'fontello_rails_converter'` and run `bundle install`
 
+Read the [note](https://github.com/railslove/fontello_rails_converter#gemfile-environment) below to decide whether to put the gem into the `production` or `development` group in your Gemfile.
+
 #### Get your icon font
 
 1. Download your initial `.zip` file from [http://fontello.com](http://fontello.com) and save it to `myapp/tmp/fontello.zip`
