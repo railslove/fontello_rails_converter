@@ -45,6 +45,13 @@ Alternatively, you can download & save the `.zip` file just like in the initial 
 
 For more help run `fontello --help`
 
+## Sass enhacements
+
+The conversion process will do a couple of things to make working with the main fontello stylesheet easier in Rails/Sass:
+
+* It will convert font paths to use `font-url`
+* It will create [Sass placeholder selectors](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#placeholder_selectors_) (e.g. `%icon-foo` for all the icons) so you have the choice to use the CSS classes in your markup or to `@extend` the placeholders in your Sass code
+
 ## Misc
 
 #### Additional fontello stylesheets
