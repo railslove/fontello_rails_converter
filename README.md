@@ -7,7 +7,7 @@ CLI gem for comfortably working with icon fonts from [http://fontello.com](http:
 Main features:
 
 * **Open** up your current fontello font in the browser from the command line
-* **Copy & convert** files from the zip into rails app (inclusively Sass enhancements)
+* **Copy & convert** files from the zip into rails app (inclusively [Sass enhancements](#sass-enhacements))
 
 
 ## Initial usage
