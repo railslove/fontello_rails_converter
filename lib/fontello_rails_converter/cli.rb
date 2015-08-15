@@ -59,8 +59,9 @@ module FontelloRailsConverter
       copy
 
       puts "---- convert -----"
-      convert_main_stylesheet
+      convert_stylesheets
       convert_icon_guide
+
     end
 
     private
@@ -72,9 +73,33 @@ module FontelloRailsConverter
         FileUtils.mkdir_p @options[:icon_guide_dir]
       end
 
-      def convert_main_stylesheet
-        content = File.read(main_stylesheet_file).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+      def convert_stylesheets
+        ['', '-embedded'].each do |stylesheet_postfix|
+          source_file = stylesheet_file(postfix: stylesheet_postfix)
+          content = File.read(source_file).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
 
+          content = sass_enhance(content)
+          puts "enhancing with Sass placeholder selectors"
+
+          content = convert_for_asset_pipeline(content)
+          puts "converting for asset pipeline"
+
+          target_file = stylesheet_file(postfix: stylesheet_postfix, extension: @options[:stylesheet_extension])
+          File.open(target_file, 'w') { |f| f.write(content) }
+          puts green("Write converted #{target_file}")
+
+          File.delete(source_file)
+          puts "Removed #{source_file} in favor of the #{@options[:stylesheet_extension]}"
+        end
+      end
+
+      def convert_for_asset_pipeline(content)
+        # asset URLs
+        content.gsub! /\.\.\/font\//, ""
+        content.gsub!(/url\(([^\(]+)\)/) { |m| "font-url(#{$1})" }
+      end
+
+      def sass_enhance(content)
         # asset URLs
         content.gsub! /\.\.\/font\//, ""
         content.gsub!(/url\(([^\(]+)\)/) { |m| "font-url(#{$1})" }
@@ -96,9 +121,7 @@ module FontelloRailsConverter
           end
         end
 
-        target_file = main_stylesheet_file(extension: @options[:stylesheet_extension])
-        File.open(target_file, 'w') { |f| f.write(content) }
-        puts green("Created #{target_file} for Sass & asset pipeline")
+        content
       end
 
       def copy_font_files(zipfile, files)
@@ -175,9 +198,9 @@ module FontelloRailsConverter
         @_icon_guide_target_file ||= File.join(@options[:icon_guide_dir], "fontello-demo.html")
       end
 
-      def main_stylesheet_file(extension: '.css')
+      def stylesheet_file(postfix: '', extension: '.css')
         if fontello_name.present? && @options[:stylesheet_dir].present?
-          File.join(@options[:stylesheet_dir], "#{fontello_name}#{extension}")
+          File.join(@options[:stylesheet_dir], "#{fontello_name}#{postfix}#{extension}")
         end
       end
 

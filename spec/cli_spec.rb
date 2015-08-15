@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FontelloRailsConverter::Cli do
   let(:cli) { described_class.new({
-      config_file: 'spec/fixtures/config.json',
+      config_file: 'spec/fixtures/fontello/config.json',
       stylesheet_dir: 'vendor/assets/stylesheets'
     })
   }
@@ -16,14 +16,20 @@ describe FontelloRailsConverter::Cli do
     end
   end
 
-  describe '#main_stylesheet_file' do
+  describe '#stylesheet_file' do
     specify do
-      expect(cli.send(:main_stylesheet_file)).to eql 'vendor/assets/stylesheets/makerist.css'
+      expect(cli.send(:stylesheet_file)).to eql 'vendor/assets/stylesheets/test.css'
     end
 
     context '.scss extension' do
       specify do
-        expect(cli.send(:main_stylesheet_file, extension: '.scss')).to eql 'vendor/assets/stylesheets/makerist.scss'
+        expect(cli.send(:stylesheet_file, extension: '.scss')).to eql 'vendor/assets/stylesheets/test.scss'
+      end
+    end
+
+    context 'with postfix' do
+      specify do
+        expect(cli.send(:stylesheet_file, postfix: '-embedded', extension: '.scss')).to eql 'vendor/assets/stylesheets/test-embedded.scss'
       end
     end
   end
@@ -51,9 +57,8 @@ describe FontelloRailsConverter::Cli do
     end
 
     context 'correct config file' do
-
       specify do
-        expect(cli.send(:fontello_name)).to eql 'makerist'
+        expect(cli.send(:fontello_name)).to eql 'test'
       end
     end
   end
