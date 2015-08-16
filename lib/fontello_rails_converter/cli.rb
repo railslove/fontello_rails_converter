@@ -100,10 +100,6 @@ module FontelloRailsConverter
       end
 
       def sass_enhance(content)
-        # asset URLs
-        content.gsub! /\.\.\/font\//, ""
-        content.gsub!(/url\(([^\(]+)\)/) { |m| "font-url(#{$1})" }
-
         # turn icon base class into placeholder selector
         content.gsub! /\[class\^="icon-[^\{]+{/m, "%icon-base {"
 
