@@ -133,7 +133,7 @@ module FontelloRailsConverter
 
       def copy_config_json(zipfile, config_file)
         puts "config.json:"
-        target_file = File.join @options[:font_dir], config_file.to_s.split("/").last
+        target_file =  @options[:config_file]
         zipfile.extract(config_file, target_file) { true }
         puts green("Copied #{target_file}")
       end
