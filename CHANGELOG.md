@@ -1,3 +1,8 @@
+# 0.4.2
+
+* [enhancement] embedded stylesheet (e.g. `fontello-embedded.css`) will also be converted to Sass #32
+* [bugfix] the .css source version of a stylesheet will be deleted on conversion, because having both a fontello.css and fontello.scss was creating problems #33
+
 # 0.4.1
 
 * [bugfix] for case where font name in `config.json` is empty #30
