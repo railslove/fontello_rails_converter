@@ -22,7 +22,7 @@ Read the [note](https://github.com/railslove/fontello_rails_converter#gemfile-en
 
 1. Download your initial `.zip` file from [http://fontello.com](http://fontello.com) and save it to `myapp/tmp/fontello.zip`
 
-1. Run `fontello convert --no-download` inside your app's root directory
+1. Run `bundle exec fontello convert --no-download` inside your app's root directory
 
 It will copy all the assets from the `fontello.zip` file into the appropiate places in your app's `vendor/assets/` directory.
 
@@ -37,9 +37,9 @@ You can check if the icon font is working correctly by visiting [http://localhos
 
 When you want to add new icons to your existing fontello font you can open it in the browser by using `fontello open` and select all the additional icons you want to add.
 
-Next you click the 'Save session' button on the fontello website. After that you can download, copy and convert the changed font by running `fontello convert` (it has persisted the session id in `tmp/fontello_session_id` and will used that to pull down your changed font).
+Next you click the 'Save session' button on the fontello website. After that you can download, copy and convert the changed font by running `bundle exec fontello convert` (it has persisted the session id in `tmp/fontello_session_id` and will used that to pull down your changed font).
 
-Alternatively, you can download & save the `.zip` file just like in the initial setp and run `fontello convert --no-download` to use the manually downloaded file instead of pulling it down from fontello.
+Alternatively, you can download & save the `.zip` file just like in the initial setp and run `bundle exec fontello convert --no-download` to use the manually downloaded file instead of pulling it down from fontello.
 
 ## More help
 
