@@ -62,4 +62,18 @@ describe FontelloRailsConverter::Cli do
       end
     end
   end
+
+  describe '#copy_config_json' do
+    let(:zipfile) { instance_double('FontelloZipfile') }
+    let(:config_file_path) { 'test/config.json' }
+
+    subject {
+      cli.send(:copy_config_json, zipfile, config_file_path)
+    }
+
+    specify do
+      expect(zipfile).to receive(:extract).with(config_file_path, 'spec/fixtures/fontello/config.json')
+      subject
+    end
+  end
 end
