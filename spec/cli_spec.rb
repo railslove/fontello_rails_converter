@@ -7,12 +7,12 @@ describe FontelloRailsConverter::Cli do
     })
   }
 
-  describe '.convert_icon_guide_html' do
+  describe '#convert_icon_guide_html' do
     let(:content) { File.read('spec/fixtures/fontello-demo.html') }
     let(:converted_content) { File.read('spec/fixtures/converted/fontello-demo.html') }
 
     specify do
-      expect(described_class.convert_icon_guide_html(content)).to eql converted_content
+      expect(cli.send(:convert_icon_guide_html, content)).to eql converted_content
     end
   end
 

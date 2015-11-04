@@ -160,12 +160,12 @@ module FontelloRailsConverter
       def convert_icon_guide
         content = File.read(icon_guide_target_file)
         File.open(icon_guide_target_file, 'w') do |f|
-          f.write self.class.convert_icon_guide_html(content)
+          f.write convert_icon_guide_html(content)
         end
         puts green("Converted demo.html for asset pipeline: #{icon_guide_target_file}")
       end
 
-      def self.convert_icon_guide_html(content)
+      def convert_icon_guide_html(content)
         content.gsub! /css\//, "/assets/"
         content.gsub! "url('./font/", "url('/assets/"
       end
