@@ -19,7 +19,9 @@ def set_options_based_on_rails_root(options)
     zip_file: "#{options[:rails_root_dir]}/tmp/fontello.zip",
     config_file: "#{options[:asset_dir]}/fonts/config.json",
     fontello_session_id_file: "#{options[:rails_root_dir]}/tmp/fontello_session_id",
-    options_file: "#{options[:rails_root_dir]}/config/fontello_rails_converter.yml"
+    options_file: "#{options[:rails_root_dir]}/config/fontello_rails_converter.yml",
+    assets_prefix_css: "/assets",
+    assets_prefix_fonts: "/assets"
   })
 end
 

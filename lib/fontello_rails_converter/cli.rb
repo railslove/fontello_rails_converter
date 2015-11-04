@@ -166,8 +166,8 @@ module FontelloRailsConverter
       end
 
       def convert_icon_guide_html(content)
-        content.gsub! /css\//, "/assets/"
-        content.gsub! "url('./font/", "url('/assets/"
+        content.gsub! /css\//, "#{@options[:assets_prefix_css]}/"
+        content.gsub! "url('./font\/", "url('#{@options[:assets_prefix_fonts]}/"
       end
 
       def config_file_exists?
