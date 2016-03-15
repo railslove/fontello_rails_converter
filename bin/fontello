@@ -111,7 +111,7 @@ OptionParser.new do |opts|
   end
 
   opts.on("-p", "--session-id-file [PATH]", "File to persist fontello session ID (default: /rails_root/tmp/fontello_session_id)") do |opt|
-    options[:font_dir] = opt
+    options[:fontello_session_id_file] = opt
   end
 
   opts.on_tail("-v", "--version", "Show version") do
