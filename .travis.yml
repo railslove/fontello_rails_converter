@@ -1,4 +1,4 @@
 language: ruby
 rvm:
-  - 2.3
+  - 2.2
 bundler_args: --without development
