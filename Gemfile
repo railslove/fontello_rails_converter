@@ -9,7 +9,7 @@ group :test do
   gem 'rails-dummy'
   gem 'rails', '~> 4.0'
   gem 'sqlite3' # dummy app dependency
-  gem 'bundler', '>= 1.9'
+  gem 'bundler', '~> 1.10'
 end
 
 group :development do
