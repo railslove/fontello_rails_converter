@@ -122,7 +122,7 @@ module FontelloRailsConverter
 
       def copy_font_files(zipfile, files)
         puts "font files:"
-        files.select{ |file| file.to_s.end_with?(".eot", ".woff", ".ttf", ".svg") }.each do |file|
+        files.select{ |file| file.to_s.end_with?(".eot", ".woff", ".woff2", ".ttf", ".svg") }.each do |file|
           filename = file.to_s.split("/").last
 
           target_file = File.join @options[:font_dir], filename
