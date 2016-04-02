@@ -1,3 +1,7 @@
+# 0.4.4
+
+* added .woff2 support #41
+
 # 0.4.2
 
 * [enhancement] embedded stylesheet (e.g. `fontello-embedded.css`) will also be converted to Sass #32
