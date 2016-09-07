@@ -34,6 +34,17 @@ describe FontelloRailsConverter::Cli do
     end
   end
 
+  describe '#convert_for_asset_pipeline' do
+    specify do
+      expect(cli.send(:convert_for_asset_pipeline, "url(/this/is/a/link)")).to eql 'font-url(/this/is/a/link)'
+    end
+
+    specify do
+      expect(cli.send(:convert_for_asset_pipeline, "url(data:application/octet-stream;base64,FFF)")).to eql 'url(data:application/octet-stream;base64,FFF)'
+    end
+  end
+
+
   describe '#fontello_name' do
     context 'no config_file specified' do
       let(:cli) { described_class.new({}) }
