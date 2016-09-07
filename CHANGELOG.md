@@ -1,6 +1,6 @@
 # 0.4.5
 
-* Fixing a bug cause embedded base64 font not decoded correct
+* [bugfix] embedded base64 fonts (using `url()`) were not decoded correctly #43
 
 # 0.4.4
 
