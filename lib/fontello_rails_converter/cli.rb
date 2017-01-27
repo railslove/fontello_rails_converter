@@ -114,7 +114,7 @@ module FontelloRailsConverter
                     else
                       "~#{$1}"
                     end
-          "url(#{replace})"
+          $1.include?("application/octet-stream") ? "url(#{$1})" : "url(#{replace})"
         end
       end
 
