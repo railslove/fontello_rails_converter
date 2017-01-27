@@ -73,6 +73,10 @@ OptionParser.new do |opts|
     options[:stylesheet_extension] = opt
   end
 
+  opts.on("--webpack", "Generate for webpack") do |opt|
+    options[:webpack] = true
+  end
+
   opts.separator "`download` options:"
 
   opts.on("-u", "--use-config", "Uses existing config.json instead of persisted or passed in fontello session ID\n\n") do |opt|

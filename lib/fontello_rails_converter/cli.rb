@@ -59,7 +59,7 @@ module FontelloRailsConverter
       copy
 
       puts "---- convert -----"
-      convert_stylesheets
+      convert_stylesheets(@options[:webpack])
       convert_icon_guide
 
     end
@@ -73,7 +73,7 @@ module FontelloRailsConverter
         FileUtils.mkdir_p @options[:icon_guide_dir]
       end
 
-      def convert_stylesheets
+      def convert_stylesheets(webpack)
         ['', '-embedded'].each do |stylesheet_postfix|
           source_file = stylesheet_file(postfix: stylesheet_postfix)
           content = File.read(source_file).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
@@ -81,8 +81,13 @@ module FontelloRailsConverter
           content = sass_enhance(content)
           puts "enhancing with Sass placeholder selectors"
 
-          content = convert_for_asset_pipeline(content)
-          puts "converting for asset pipeline"
+          if webpack
+            content = convert_for_webpack(content)
+            puts "converting for webpack"
+          else
+            content = convert_for_asset_pipeline(content)
+            puts "converting for asset pipeline"
+          end
 
           target_file = stylesheet_file(postfix: stylesheet_postfix, extension: @options[:stylesheet_extension])
           File.open(target_file, 'w') { |f| f.write(content) }
@@ -98,6 +103,18 @@ module FontelloRailsConverter
         content.gsub! /\.\.\/font\//, ""
         content.gsub!(/url\(([^\(]+)\)/) do |m|
           $1.include?("application/octet-stream") ? "url(#{$1})" : "font-url(#{$1})"
+        end
+      end
+
+      def convert_for_webpack(content)
+        content.gsub! /\.\.\/font\//, ""
+        content.gsub!(/url\(([^\(]+)\)/) do |m|
+          replace = if $1[0] == "'"
+                      "'~#{$1[1..-1]}"
+                    else
+                      "~#{$1}"
+                    end
+          "url(#{replace})"
         end
       end
 

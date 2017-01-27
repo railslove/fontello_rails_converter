@@ -40,6 +40,14 @@ describe FontelloRailsConverter::Cli do
     end
 
     specify do
+      expect(cli.send(:convert_for_webpack, "url(/this/is/a/link)")).to eql 'url(~/this/is/a/link)'
+    end
+
+    specify do
+      expect(cli.send(:convert_for_webpack, "url('/this/is/a/link')")).to eql %q[url('~/this/is/a/link')]
+    end
+
+    specify do
       expect(cli.send(:convert_for_asset_pipeline, "url(data:application/octet-stream;base64,FFF)")).to eql 'url(data:application/octet-stream;base64,FFF)'
     end
   end
