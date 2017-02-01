@@ -60,7 +60,9 @@ The conversion process will do a couple of things to make working with the main 
 
 You can convert the fontello stylesheets for use with Webpack instead of Sprockets.
 
-If you have not alreday done it, you must add the vendor paths to the resolve roots of Webpack, as well as all the extensions of the font files.
+If you have not alreday done it, you must
+
+* add the vendor paths to the resolve roots of Webpack
 
 ```javascript
 [...]
@@ -76,11 +78,14 @@ module.exports = {
       path.join(railsRoot, './vendor/assets/stylesheets'),
       path.join(railsRoot, './vendor/assets/fonts'),
     ],
-
-    extensions: [ [...] '.woff', '.woff2', '.eot']
-    [...]
 },
 
+```
+
+* add optional parameters to the `test` key for the loader of the fonts files
+
+```javascript
+test: /\.(png|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
 ```
 
 ## Misc
