@@ -1,3 +1,7 @@
+# 0.4.6
+
+* added new `--webpack` option to convert stylesheets for use with webpack.
+
 # 0.4.5
 
 * [bugfix] embedded base64 fonts (using `url()`) were not decoded correctly #43
