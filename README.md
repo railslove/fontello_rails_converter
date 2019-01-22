@@ -28,7 +28,7 @@ It will copy all the assets from the `fontello.zip` file into the appropiate pla
 
 #### Use the font in your app
 
-To use your font in your app you will need to `@import` the main stylesheet `vendor/assets/stylesheets/fontname.css.scss` in your `application.css.sass` using `@import 'fontname'`.
+To use your font in your app you will need to `@import` the main stylesheet `vendor/assets/stylesheets/fontello.scss` in your `application.sass` using `@import 'fontello'`. You can set custom for font files in input field near "Download" button (for example `fontname`). In this case file to import will be `@import 'fontname.scss`.
 
 You can check if the icon font is working correctly by visiting [http://localhost:3000/fontello-demo.html](http://localhost:3000/fontello-demo.html).
 
@@ -92,7 +92,7 @@ test: /\.(png|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
 
 #### Additional fontello stylesheets
 
-Besides the main stylesheet (`fontname.css.scss`) fontello also provides a couple of additional stylesheets that you might want to `@import` in your app for special use cases:  `fontname-ie7-codes.css.scss`, `fontname-embedded.css.scss`, `animation.css.scss`, `fontname-ie7.css.scss`, `fontname-codes.css.scss`
+Besides the main stylesheet (`fontname.scss`) fontello also provides a couple of additional stylesheets that you might want to `@import` in your app for special use cases:  `fontname-ie7-codes.css`, `fontname-embedded.scss`, `animation.css`, `fontname-ie7.css`, `fontname-codes.css`
 
 #### Gemfile environment
 
