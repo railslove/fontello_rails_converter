@@ -3,7 +3,7 @@ require 'json'
 
 module FontelloRailsConverter
   class FontelloApi
-    FONTELLO_HOST = "http://fontello.com"
+    FONTELLO_HOST = "https://fontello.com"
 
     def initialize(options)
       @config_file = options[:config_file]
