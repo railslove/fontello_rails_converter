@@ -25,7 +25,7 @@ describe FontelloRailsConverter::FontelloApi do
       end
 
       specify do
-        expect(subject.session_url).to eql 'http://fontello.com/12345'
+        expect(subject.session_url).to eql 'https://fontello.com/12345'
       end
     end
 
