@@ -1,18 +1,23 @@
 require 'spec_helper'
 
 describe FontelloRailsConverter::Cli do
-  let(:cli) { described_class.new({
-      config_file: 'spec/fixtures/fontello/config.json',
-      stylesheet_dir: 'vendor/assets/stylesheets'
-    })
+  let(:options) {{
+    config_file: 'spec/fixtures/fontello/config.json',
+    stylesheet_dir: 'vendor/assets/stylesheets'
+  }}
+  let(:cli) { described_class.new(options)
   }
 
-  describe '.convert_icon_guide_html' do
+  describe '#convert_icon_guide_html' do
     let(:content) { File.read('spec/fixtures/fontello-demo.html') }
     let(:converted_content) { File.read('spec/fixtures/converted/fontello-demo.html') }
+    let(:options){{
+      assets_prefix_css: '/assets',
+      assets_prefix_fonts: '/assets'
+    }}
 
     specify do
-      expect(described_class.convert_icon_guide_html(content)).to eql converted_content
+      expect(cli.send(:convert_icon_guide_html, content)).to eql converted_content
     end
   end
 
